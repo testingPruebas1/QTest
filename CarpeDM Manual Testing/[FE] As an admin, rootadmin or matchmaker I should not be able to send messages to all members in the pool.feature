@@ -1,4 +1,4 @@
-Feature: As admin, rootadmin or matchmaker you should not be able to message all group members
+Feature: As admin, rootadmin or matchmaker you should not be able to message all active members
 
        From now on, only users who are type 1 and the status is 'PAID'
        As well as type 2 and 3 users will appear in the search process.
