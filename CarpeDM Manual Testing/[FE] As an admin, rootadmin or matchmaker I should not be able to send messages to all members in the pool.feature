@@ -1,6 +1,6 @@
 Feature: As admin, rootadmin or matchmaker you should not be able to message all active members
 
-       From now on, only users who are type 1 and the status is 'PAID'
+       From now on, only users who are type 1 and the status is 'PAID' and are assigned to me (MyMembers)
        As well as type 2 and 3 users will appear in the search process.
 
        Scenario: As an admin, rootadmin or matchmaker, you can only send messages to your members
