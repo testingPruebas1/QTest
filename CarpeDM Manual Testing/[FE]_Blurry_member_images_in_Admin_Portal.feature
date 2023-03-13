@@ -6,7 +6,7 @@ Feature: [FE] Blurry member images in Admin Portal
 
 
 
-Scenario: User Profile
+Scenario: (AC#1)User Profile
 
 Given Admin have logged in with his credentials, and navigates to "Pool" screen.
 
@@ -17,7 +17,7 @@ And he navigates to profile, trying to see profile picture
 Then Admin must see profile picture in high resolution, to recognice the details.
 
 
-Scenario: Manual match
+Scenario: (AC#1) Manual match
 
 When Admin selects a user picture, selects Match manually in user's member card
 
