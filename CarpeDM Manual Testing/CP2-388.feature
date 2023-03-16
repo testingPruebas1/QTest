@@ -13,7 +13,7 @@ Then user must see that collection "DiscountCode" exists. (AC#1)
 
 When user checks "DiscountCode" collection
 
-Then user must see that the UserID and the code (string) have saved. (AC#2)
+Then user must see that the UserID and the code (string) have been saved. (AC#2)
 
 
 When user tries letters and numbers in the "Code"
@@ -21,7 +21,7 @@ When user tries letters and numbers in the "Code"
 Then user must checks that can use letters and numbers. (AC#3)
 
 
-When user checks the field saved for endpoint runned.
+When user checks the field saved after executing the endpoint
 
 Then user must see that code and UserID is inserted on "DiscountCode" collection. (AC#4)
 
