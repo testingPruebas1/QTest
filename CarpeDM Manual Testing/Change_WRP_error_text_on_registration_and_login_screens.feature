@@ -16,14 +16,14 @@ Feature: Change WRP error text on registration and login screens
         And the user enters the email and clicks CONTINUE
         Then user will see an error: "This email address is not authorized to access this site. Contact ask@carpedmdating.com for support."
 
-    Scenario: During the registration process, you should get an error message
+    Scenario: During the registration process, you should get an error message if the email already exists for an active member
 
        When the WRP user tries to create an account with an existing email in the database with the field "IsDeleted" = false
        And the user enters the email and clicks CONTINUE
        Then the "api/Auth/IsEmailAvailable/{email}" endpoint will return the message "EMAIL EXISTS" in the message field.
        And the message "Sign up Error! An account linked to this email already exists. Enter another email or log in."
 
-    Scenario: During the login process, you should not get any error message
+    Scenario: During the login process, you should not get any error message if the email already exists for an active member
 
        When the WRP user tries to login with an existing email in the database with the field "IsDeleted" = true
        And the user enters the email and clicks CONTINUE
