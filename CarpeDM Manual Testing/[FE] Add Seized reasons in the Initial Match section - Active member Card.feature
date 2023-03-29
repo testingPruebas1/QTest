@@ -2,11 +2,11 @@ Feature:
   Add the reason why the active member card user liked the match.
   
   Background:
-    Given that user B liked user A - (SeizeMatch).
+    Given that userB liked userA - (SeizeMatch).
 
   Scenario: #1
-    When user A performs SeizeMatch with user B.
+    When userA performs SeizeMatch with userB.
     Then the "IsSeizedByBothUsers" field is updated to "true".
-    And the StatusName field of matchUser A and matchUser B is updated to "SeizedMatch"
-    And user A profile should show the reason why user A liked the match with user B with the initial match expiration date "InitialMatchExpires" in the "INITIAL MATCH" section.
-    And in user B profile, you should display the reason why user B liked the match with user A with the initial match expiration date "InitialMatchExpires" in the "INITIAL MATCH" section.
+    And the StatusName field of matchUserA and matchUserB is updated to "SeizedMatch"
+    And userA profile should show the reason why userA liked the match with userB with the initial match expiration date "InitialMatchExpires" in the "INITIAL MATCH" section.
+    And in userB profile, you should display the reason why userB liked the match with userA with the initial match expiration date "InitialMatchExpires" in the "INITIAL MATCH" section.
