@@ -24,3 +24,17 @@ Feature:
     And the "ReportedReason" field is updated on matchUserA and matchUserB for the reason userA chose.
     And userA profile should show the reason why userA made a ReportMatch with userB by using the text "[First Name userA] reported [First Name userB] for [reason]" in the "REPORTED MATCHES" section.
     And userB profile should show the reason why userA did a ReportMatch with userB by using the text "[First Name userA] reported [First Name userB] for [reason]" in the "REPORTED MATCHES" section.
+    
+  Scenario: #4
+    When userA performs RemainMatch (true) with userB.
+    Then the "StatusName" field of matchUserA is updated to "SeizedMatch" and the "StatusName" field of matchUserB is updated to "RemainMatch".
+    And the "RemainMatchedReason" field is updated on matchUserB for the reason userA chose.
+    And userA profile must show the reason why userA remains paired with userB in the "QUALIFIED MATCH" section.
+    And userB profile shouldn't show anything.
+    
+  Scenario: #5
+    When userA performs RemainMatch (false) with userB.
+    Then the "StatusName" field of matchUserA is updated to "SeizedMatch" and the "StatusName" field of matchUserB is updated to "UnmatchedMatch".
+    And the "UnmatchedReason" field is updated on matchUserB for the reason userA chose.
+    And UserA profile must show the reason why UserA remains matched with UserB in the "UNMATCHED MATCHES" section.
+    And userB profile shouldn't show anything.
