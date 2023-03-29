@@ -7,5 +7,5 @@ Feature:
   Scenario: #1
     Given that user A liked user B.
     Then the "IsSeizedByBothUsers" field is updated to "true".
-    And user A's profile should show the reason why user A liked the match with user B.
-    And in user B's profile you should show the reason why user B liked the match with user A.
+    And user A profile should show the reason why user A liked the match with user B.
+    And in user B profile you should show the reason why user B liked the match with user A.
