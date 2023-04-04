@@ -1,0 +1,17 @@
+Feature: The question What city are you dating in? is not being displayed in the Questionnaire
+
+    Only in QA:
+
+    Bug 1 Given that the user is in status INITIAL or AMEND, when the user clicks on the pencild next to QUESTIONNAIRE or enter to the question via de “Review Profile” Screen, then the question What city are you dating in?  is not displayed. ANd the Sexual Orientation question is displayed first instead of being displayed as a second question.
+
+    Bug 2 The Progress bar is out of the screen
+
+    Scenario: "What city are you dating in?" and "Sexual Orientation" questions
+
+        Given User is in status INITIAL or AMEND
+        When User clicks on the pencild next to QUESTIONNAIRE or enter to the question via de “Review Profile” Screen
+        Then question "What city are you dating in?" must be displayed
+        And "Sexual Orientation" must be displayed as second question. (AC#1)
+
+        When User clicks on the pencild next to QUESTIONNAIRE or enter to the question via de “Review Profile” Screen
+        Then User must see The Progress bar (AC#2)
