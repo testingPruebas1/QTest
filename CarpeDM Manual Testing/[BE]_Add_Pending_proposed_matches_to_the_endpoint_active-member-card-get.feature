@@ -12,8 +12,8 @@ Feature: [BE] Add Pending proposed matches to the endpoint active-member-card-ge
 
     Scenario: Pending proposed match in active-member-card-get
 
-        Given User A is seized UserB
-        And User B is not yet selected any option
+        Given User A  seized UserB
+        And User B has  not selected any option yet
         When User A runs active-member-card-get with User A ID
         Then User A must see the new array “pendingmatches” (AC#1)
 
