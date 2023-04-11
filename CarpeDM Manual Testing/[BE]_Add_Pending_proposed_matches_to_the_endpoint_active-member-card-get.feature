@@ -14,9 +14,9 @@ Feature: [BE] Add Pending proposed matches to the endpoint active-member-card-ge
 
         Given User A is seized UserB
         And User B is not yet selected any option
-        When Admin runs active-member-card-get with User A ID
-        Then Admin must see the new array “pendingmatches” (AC#1)
+        When User A runs active-member-card-get with User A ID
+        Then User A must see the new array “pendingmatches” (AC#1)
 
-        And Admin must see that “pendingmatches” includes the matches in statusname: “SeizedMatch” and  IsSeizebyBothUsers= FALSE (AC#2)
+        And User A must see that “pendingmatches” includes the matches in statusname: “SeizedMatch” and  IsSeizebyBothUsers= FALSE (AC#2)
 
         And For each match object, the endpoint must return all the match information as in the other arrays. (AC#3)
