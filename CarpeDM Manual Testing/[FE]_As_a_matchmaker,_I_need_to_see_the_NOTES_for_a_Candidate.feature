@@ -13,3 +13,6 @@ Feature: [FE] As a matchmaker, I need to see the NOTES for a Candidate
 
         When Matchmaker see the notes
         Then he must see that the notes are arranged in descending chronological order, the newest notes will be shown above(AC#3)
+
+        When another matchmaker creates a note on the same member
+        Then matchmaker must see the changes with previous parameters (AC#4)
