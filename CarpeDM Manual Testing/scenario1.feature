@@ -5,7 +5,7 @@ Scenario Outline: (#1) Implement using a new cron job to update user status to B
         When the webhook is executed with the following parameters:
             | id                | caseId    |
             | caseStatusId      | Completed |
-            | secondaryStatusId | null      |
+            | secondaryCaseStatusId | null      |
         Then the user's profile status will be updated to "BCKCOMPLETED" in the user object.
         And the "Status" field in the user's BackgroundCheck object will be updated from "CaseCreated" to "Complete".
         
