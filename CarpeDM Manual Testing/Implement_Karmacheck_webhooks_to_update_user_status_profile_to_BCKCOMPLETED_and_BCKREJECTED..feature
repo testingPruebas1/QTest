@@ -5,7 +5,7 @@ Scenario Outline: (#4) Update BackgroundCheck collection with "CompletedNeedRevi
         When the KC webhook has the following parameters:
             | id                | caseId    |
             | caseStatusId      | Completed |
-            | secondaryStatusId | Consider  |
+            | secondaryCaseStatusId | Consider  |
         Then the user profile state will still be "BCKINIT" on the user object.
         And the "Status" field in the user's BackgroundCheck object will be updated from "CaseCreated" to "CompletedNeedReview".
 
