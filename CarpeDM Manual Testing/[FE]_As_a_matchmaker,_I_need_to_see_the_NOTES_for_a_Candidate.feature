@@ -4,7 +4,7 @@ Feature: [FE] As a matchmaker, I need to see the NOTES for a Candidate
 
     Scenario: New Tab in Candidate Profile Preview Screen
 
-        Given Matchmaker have logged in
+        Given Matchmaker have logged in, creates and updates notes on a member.
         When Matchmaker navigates to Candidate Profile Preview screen, to have more information
         Then Matchmaker must see a new tab next to Match Preferences with NOTES for this specficic candidate. Containing just the existing notes.(AC#1)
 
