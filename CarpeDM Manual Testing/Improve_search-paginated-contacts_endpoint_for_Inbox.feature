@@ -1,61 +1,56 @@
-Feature: Improve search-paginated-contacts endpoint for Inbox
+Feature: Testing search-paginated-contacts endpoint
 
-Scenario: Searching users by FirstName
-  Given there are multiple users in the system
-  And the user enters a FirstName in the search field
-  When the user performs the search
-  Then the users matching the FirstName should be returned
+Scenario: Searching with a non-empty keyword
+  Given the search-paginated-contacts endpoint is available
+  When I search with a non-empty keyword
+  Then the response should contain users whose First Name, Preferred Name, or Last Name match the keyword
 
-Scenario: Searching users by LastName
-  Given there are multiple users in the system
-  And the user enters a LastName in the search field
-  When the user performs the search
-  Then the users matching the LastName should be returned
+Scenario: Searching with a keyword containing multiple words
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword containing multiple words
+  Then the response should contain users whose First Name, Preferred Name, or Last Name match the keyword combination
 
-Scenario: Searching users by PreferredName
-  Given there are multiple users in the system
-  And the user enters a PreferredName in the search field
-  When the user performs the search
-  Then the users matching the PreferredName should be returned
+Scenario: Searching with an empty keyword
+  Given the search-paginated-contacts endpoint is available
+  When I search with an empty keyword
+  Then the response should contain all users based on the filters (myMembers and adminsAndMatchmakers)
 
-Scenario: Searching users by FirstName and LastName simultaneously
-  Given there are multiple users in the system
-  And the user enters a FirstName and LastName in the search field
-  When the user performs the search
-  Then the users matching the FirstName and LastName should be returned
+Scenario: Searching with a keyword containing only whitespace
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword containing only whitespace
+  Then the response should be empty
 
-Scenario: Searching users by PreferredName and LastName simultaneously
-  Given there are multiple users in the system
-  And the user enters a PreferredName and LastName in the search field
-  When the user performs the search
-  Then the users matching the PreferredName and LastName should be returned
+Scenario: Searching with a keyword containing leading/trailing whitespace
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword containing leading/trailing whitespace
+  Then the response should contain users whose First Name, Preferred Name, or Last Name match the trimmed keyword
 
-Scenario: Searching users by FirstName + LastName or PreferredName + LastName simultaneously
-  Given there are multiple users in the system
-  And the user enters a FirstName + LastName or PreferredName + LastName in the search field
-  When the user performs the search
-  Then the users matching the FirstName + LastName or PreferredName + LastName should be returned
+Scenario: Filtering by myMembers and adminsAndMatchmakers
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword and filter by myMembers and adminsAndMatchmakers
+  Then the response should contain only active users who are members of the administrator and root-admins, admins, and matchmakers
 
-Scenario: Searching users without entering any value
-  Given there are multiple users in the system
-  And the user does not enter any value in the search field
-  When the user performs the search
-  Then no users should be returned
+Scenario: Searching with a non-matching keyword
+  Given the search-paginated-contacts endpoint is available
+  When I search with a non-matching keyword
+  Then the response should be empty
 
-Scenario: Searching users by entering only spaces in the search field
-  Given there are multiple users in the system
-  And the user enters only spaces in the search field
-  When the user performs the search
-  Then no users should be returned
+Scenario: Searching with a keyword that matches email
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword that matches an email
+  Then the response should be empty
 
-Scenario: Ignoring spaces in the search field
-  Given there are multiple users in the system
-  And the user enters a search string with leading and trailing spaces in the search field
-  When the user performs the search
-  Then the users matching the search string (ignoring the leading and trailing spaces) should be returned
+Scenario: Searching with FirstName + LastName combination
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword that matches FirstName + LastName
+  Then the response should contain users whose FirstName + LastName combination matches the keyword
 
-Scenario: Searching users with special characters in search fields
-  Given there are multiple users in the system
-  And the user enters a search string with special characters in the search field
-  When the user performs the search
-  Then the users matching the search string should be returned
+Scenario: Filtering by myMembers (true) and adminsAndMatchmakers (false)
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword and filter by myMembers (true) and adminsAndMatchmakers (false)
+  Then the response should contain only active users who are members of the administrator
+
+Scenario: Filtering by myMembers (false) and adminsAndMatchmakers (true)
+  Given the search-paginated-contacts endpoint is available
+  When I search with a keyword and filter by myMembers (false) and adminsAndMatchmakers (true)
+  Then the response should contain only root-admins, admins, and matchmakers
