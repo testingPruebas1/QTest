@@ -17,3 +17,9 @@ Feature: [BE] the Initialdates-get is returning expired matches
       Given User have matches in status RemainMatch that have NOT expired
         When User runs /api/Match/initialdates-get
         Then User see a "200" response with seized match in the body
+        
+    Scenario: (#4) Pending non-expired Seize Matches
+        Given User have matches in status RemainMatch that has already expired
+        And the other match has not decided yet (the other object is in SeizedMatch and IsSeizedBYBothUsers=TRUE)
+        When User runs /api/Match/initialdates-get
+        Then this match must not be listed on the response
