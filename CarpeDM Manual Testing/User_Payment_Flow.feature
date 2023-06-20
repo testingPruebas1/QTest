@@ -24,17 +24,7 @@ Feature: User Payment Flow
     And the user status should remain "APPROVED"
     And the user should stay on the same page
 
-  Scenario: #4 User encounters an error while making the payment
-    Given the user is in "APPROVED" status
-    And the Stripe screen is displayed
-    When the user completes the credit card information
-    And clicks on "Pay"
-    Then an error message should be displayed
-    And no payment should be saved in the database
-    And the user status should remain "APPROVED"
-    And the user should stay on the same page
-
-  Scenario: #5 User session times out during the payment process
+  Scenario: #4 User session times out during the payment process
     Given the user is in "APPROVED" status
     And the Stripe screen is displayed
     When the user's session times out
