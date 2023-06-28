@@ -51,13 +51,6 @@ Scenario: Intento de creación de usuario con rol COOPERATIVA por usuario con ro
   And el mensaje de estado es "Desautorizado"
   And el cuerpo de la respuesta contiene el mensaje "No tienes permisos para realizar esta acción"
 
-Scenario: Intento de creación de usuario con JSON vacío por usuario con rol ADMIN
-  Given soy un usuario con rol ADMIN
-  When envío una solicitud POST al endpoint /usuarios con un JSON vacío en el cuerpo
-  Then la respuesta es una respuesta HTTP 400
-  And el mensaje de estado es "Error"
-  And el cuerpo de la respuesta contiene el mensaje "El JSON enviado está vacío"
-
 Scenario: Intento de creación de usuario con rol ADMIN por usuario con rol COOPERATIVA
   Given soy un usuario con rol COOPERATIVA
   When envío una solicitud POST al endpoint /usuarios con el siguiente JSON en el cuerpo:
@@ -72,3 +65,10 @@ Scenario: Intento de creación de usuario con rol ADMIN por usuario con rol COOP
   Then la respuesta es una respuesta HTTP 401
   And el mensaje de estado es "Desautorizado"
   And el cuerpo de la respuesta contiene el mensaje "No tienes permiso para crear un usuario con ese rol"
+  
+Scenario: Intento de creación de usuario con JSON vacío por usuario con rol ADMIN
+  Given soy un usuario con rol ADMIN
+  When envío una solicitud POST al endpoint /usuarios con un JSON vacío en el cuerpo
+  Then la respuesta es una respuesta HTTP 400
+  And el mensaje de estado es "Error"
+  And el cuerpo de la respuesta contiene el mensaje "El JSON enviado está vacío"
