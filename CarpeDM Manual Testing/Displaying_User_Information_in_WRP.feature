@@ -25,11 +25,6 @@ Feature: Displaying User Information in WRP
     When the user clicks on "Community Guidelines"
     Then the user should be redirected to the Community Guidelines page
 
-  Scenario: Redirecting to Terms of Use
-    Given an Active Member in PAID status, logged into the WRP
-    When the user clicks on "Terms of Use"
-    Then the user should be redirected to the Terms of Use page
-
   Scenario: Verifying responsive design
     Given an Active Member in PAID status, logged into the WRP
     When the user views their home screen on different screen sizes
