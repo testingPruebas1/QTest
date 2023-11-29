@@ -3,7 +3,7 @@ Feature:
 
   Scenario: Send SMS notification on re-match creation
     Given two users have a previous match
-    When User runs /api/Match/add-rematches with USER A & USER B IDs (AC#1)
+    When User A runs /api/Match/add-rematches with USER A & USER B IDs (AC#1)
     Then the system sends a SMS text message to the matchmaker assigned to both matches (User A and User  B ).
     
     When the system sends a SMS text message (AC#2)
