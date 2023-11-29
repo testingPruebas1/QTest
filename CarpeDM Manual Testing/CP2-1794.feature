@@ -25,3 +25,19 @@ Feature:
     Given the root admin or matchmaker that receives the message is the same of any of the [Matchmaker]’s included in the message “[Matchmaker A]’s member [full name] just rematched with [Matchmaker B]’s member [full name].”
     When User runs /api/Match/add-rematches with USER A & USER B IDs
     Then the name is not displayed twice and the text is replaced by “your member [full name]”(AC#6)
+    
+    
+  Scenario: Do not send duplicate SMS notifications when its the same Matchmaker
+    Given two users have a previous match expired in initial
+    And both userA & userB have the same matchmaker
+    When User runs /api/Match/add-rematches with USER A & USER B IDs
+    Then the SMS text message is sent only once to this matchmaker
+    
+    
+  Scenario: User with preferred name - SMS
+    Given two users have a previous match expired in initial
+    And one of them have preferred name assigned
+    When User runs /api/Match/add-rematches with USER A & USER B IDs
+    Then the format of SMS sended is "Text:  “Hi [Matchmaker first name], [Matchmaker A]’s member [full name] just rematched with [Matchmaker B]’s member [full name].”" without preferred name
+    
+    
