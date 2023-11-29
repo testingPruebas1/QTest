@@ -1,55 +1,47 @@
-Feature: CarpeDM Algorithm for Matchmaking
+Feature: Algorithm for Serving Attractive ProfileApproved Users to Active Members
 
-  Background:
-    Given there are active members in the CarpeDM system
-    And the algorithm runs once a week on a specific day
+  Scenario: Admin configures the matching algorithm
+    Given that I am a CarpeDM system admin
+    When I want to implement an algorithm that serves a curated array of 3 approvedProfile users for each active member
+    Then I should be able to configure the algorithm with the following criteria:
+      | Generating an array of 3 approvedProfile users for each active member.
+      | Prioritizing profiles based on the averageRating field.
+      | Randomizing the visibility and serving of profiles to avoid sending the same profiles to all active members simultaneously.
+      | Considering the fields of Gender, MediaGender, and SexualOrientation from the questionnaire to determine the compatibility of gender identity between the proposed profiles and the active members.
+      | Running the algorithm weekly on a specific day, with delivery times randomly selected within that day to avoid sending matches to active members at the same time every week.
 
-  Scenario: Generation of Array of Profiles
-    When the algorithm generates an array of 3 approvedProfile Users for each active member
-    Then the profiles should be selected based on the averageRating field
-    And the profiles should be presented randomly to avoid redundancy
+  Scenario: Algorithm serves attractive profiles based on rating
+    Given that the matching algorithm is configured
+    When the algorithm runs once a week
+    Then it should generate a list of 3 approved profiles for each active member based on:
+      | Two profiles with a rating greater than 4.
+      | One profile with a rating between 3 and 4.
+      | If there are no more profiles with a rating greater than 4 but there are 3 with a rating between 3 and 4, those profiles should be served.
+      | If there are not enough users with a rating greater than 3 to serve, no profiles should be sent that week.
+      | Profiles with a rating less than 3 should not be served.
+      | Randomizing the visibility and delivery to active members.
 
-  Scenario: Prioritization of Profiles by Rating
-    When the active member views the presented profiles
-    Then the profiles with higher averageRating should be prioritized
-    And there should be 2 profiles with a rating greater than 4 and 1 profile with a rating between 3 and 4
+  Scenario: Algorithm manages profile interaction and expiration
+    Given that the algorithm has served profiles to an active member
+    When the active member interacts with and rates the profiles
+    Then the information of the served profiles should be saved in the backend to avoid duplicates.
+    And the served profiles should have an expiration period of 14 days.
+    And if the active member does not interact with the profiles during the first week, 3 additional profiles should be sent in the second week.
+    And if the active member still does not interact with the profiles during the second week, the initial 3 profiles should expire, and 3 new profiles should be sent in the following week.
+    And if the person hasn't acted and the served profiles expired, they can be resent.
 
-  Scenario: Compatibility of Gender and Sexual Orientation
-    Given the active member has specified Gender, MediaGender, and SexualOrientation in the questionnaire
-    When the algorithm selects profiles for the active member
-    Then the proposed profiles should be compatible with the active member's preferences
+  Scenario: Algorithm handles the limit of profiles for the active member
+    Given that the active member has interacted with the served profiles
+    When the active member has reached the limit of 6 profiles displayed in the app
+    Then the algorithm should not send new profiles to the active member.
 
-  Scenario: Execution Frequency of the Algorithm
-    When the algorithm runs once a week on a specific day
-    Then the profiles should be delivered at different times within that day
-    And it may incorporate the times when each user is online
+  Scenario: Algorithm ensures uniqueness of profiles
+    Given that the algorithm runs and serves profiles to multiple active members
+    When profiles are served to each active member
+    Then each active member should receive a unique set of profiles each week.
 
-  Scenario: Expiration of Profiles without Interaction
-    Given the profiles are presented to the active member
-    When there is no interaction with the profiles in the first week
-    Then 3 additional profiles should be sent in the second week
-    And if there is still no interaction, the initial 3 profiles should expire, and 3 new profiles sent in the following week
-
-  Scenario: Maximum Limit of Profiles
-    Given the active member has not reached the limit of 6 profiles
-    When the algorithm sends new profiles
-    Then the active member can receive new profiles until reaching the limit of 6 displayed in the app
-
-  Scenario: Unique Profiles for Each Active Member
-    When the algorithm generates profiles for active members
-    Then each active member should receive a unique set of profiles every week
-    And no duplicates should be presented to the same active member
-
-  Scenario: Limit for Approvers of Profiles
-    Given a user with approval privileges
-    When the user sends profiles for approval
-    Then the user can send up to 15 accounts per week
-
-  Scenario: Storage of Profile Information
-    When the profiles are approved and served to active members
-    Then the system should save the Profile Picture, Name, Age, and Hobby for the approvedProfile users
-
-  Scenario: Prevention of Duplicate Profiles
-    Given profiles have been served to active members
-    When the algorithm runs again
-    Then the system should prevent sending duplicate profiles to active members
+  Scenario: Algorithm manages the weekly limit for approved users
+    Given that an approvedProfile user can receive up to 15 accounts per week
+    When the algorithm serves approved profiles
+    Then the system should save the information for each approved user, including Profile Picture, Name, Age, and Hobby.
+    And an approved user should not receive more than 15 accounts per week.
