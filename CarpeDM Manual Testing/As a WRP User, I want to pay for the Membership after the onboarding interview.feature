@@ -22,3 +22,5 @@ Feature: Membership Payment After Onboarding Interview
     When the user logs in to the WRP
     Then the user should not see the card to review BCK status
     And the user should have a link to download the app
+    And when the user clicks on the "Download CarpeDM" button on the /dashboard screen
+    Then an SMS should be sent to the user with the URL of the application
