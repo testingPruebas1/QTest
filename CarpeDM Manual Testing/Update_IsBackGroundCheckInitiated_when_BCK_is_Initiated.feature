@@ -1,5 +1,8 @@
 Feature: Update IsBackGroundCheckInitiated when BCK is Initiated
 
+  Background:
+    Given a user is in the PAID profile status
+
   Scenario: Update IsBackGroundCheckInitiated when BCK is Initiated
     Given that Karmacheck notifies that the BCK has started
     When the BCK is initiated
