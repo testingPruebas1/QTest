@@ -15,3 +15,4 @@ Feature: Payment Process for Membership
     And a UserMatches object is created for UserA
     And the Membership object within the User object is updated
     And the profile status of UserA is updated to "PAID"
+    And the custom event new_membership_payment is triggered in Braze for UserA
