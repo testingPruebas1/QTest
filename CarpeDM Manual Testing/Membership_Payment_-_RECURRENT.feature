@@ -1,18 +1,16 @@
-Feature: Membership Payment - RECURRENT
+Feature: Payment Process for Membership
 
-  Context:
-    Given a user is in the INTERVIEWAPPROVED or INTERVIEWSKIPPED profile status
-
-  Context Schema:
-    When a user chooses to pay a membership with a RECURRENT payment type
-
-  Scenario: RECURRENT membership payment
-    Given a user wants to pay their membership with a RECURRENT payment
-    When the user enters the necessary information and completes the payment
-    Then the User.ProfileStatus.Key field should be updated to "PAID"
-    And the Membership object in User.Membership should be updated with detailed membership information, including title, membership type, etc.
-    And the User.Membership.Status field should be updated to "Active"
-    And the User.Membership.CustomerId field should be updated correctly with a unique identifier
-    And a Payment object should be created in the User.Membership.Payments[] array with corresponding information, including last payment date, next payment date, and action date
-    And the User.Membership.Payments.PriceType and User.Membership.Payments.PriceTypeName fields should be updated to 1 and "RECURRENT" respectively
-    And there should be an object created in the UserMatches collection with membership information, including available matches to serve and their respective dates
+  Scenario: User completes payment process and gets subscription activated
+    Given User clicks the "Pay Now" button after choosing a membership
+    When UserA is redirected to the Chargebee payment form
+    Then a Customer is immediately created in Chargebee
+    And UserA clicks on the "Proceed To Checkout" button to fill out the payment form
+    And UserA chooses the "Card" method (other methods available are "Google Pay" and "Apple Pay" when using Safari)
+    And UserA fills out the payment information
+    And UserA clicks on the "Pay $xxx & subscribe" button
+    Then UserA is redirected to the dashboard of the Web Registration Portal with profile status PAID
+    And the corresponding subscription is created in Chargebee associated with the existing Customer
+    And the subscription is reflected in the CarpeDM database
+    And a UserMatches object is created for UserA
+    And the Membership object within the User object is updated
+    And the profile status of UserA is updated to "PAID"
