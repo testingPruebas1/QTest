@@ -1,7 +1,7 @@
 Feature: User Profile Approval and Payment Process
 
   Background:
-    Given the user is on the Status screen of a user's profile
+    Given the admin is on the Status screen of a user's profile
 
   Scenario: Approve user profile and handle payment successfully
     Given the user's profile state is "SUBMITTED" or "HOLD"
@@ -9,7 +9,7 @@ Feature: User Profile Approval and Payment Process
     Then the user's profile state should be updated to "APPROVED"
     And a custom event "new_profile_approved" is sent to Braze
 
-    Given the approved user is on the old interface for deposit payment
+    Given the approved user is ready to pay the interview deposit
     When the user clicks on the "Pay Deposit" button
     Then the user should be redirected to the payment form on the new Chargebee platform
     And the user successfully completes the payment
