@@ -7,7 +7,7 @@ Feature: User Profile Approval and Payment Process
     Given the user's profile state is "SUBMITTED" or "HOLD"
     When the admin clicks on the "APPROVE" button
     Then the user's profile state should be updated to "APPROVED"
-    And a custom event "new_profile_approved" is sent to Braze
+    And a custom event "profile_approved" is sent to Braze
 
     Given the approved user is ready to pay the interview deposit
     When the user clicks on the "Pay Deposit" button
